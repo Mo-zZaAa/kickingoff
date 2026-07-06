@@ -1,0 +1,972 @@
+/* ============================================================
+   CSS 변수 — 모든 색상은 여기서만 관리
+   ============================================================ */
+:root {
+  /* 포인트 컬러: Emerald Green — 성장·협업·자연과 기술의 조화 */
+  --accent-color: #2E7D32;
+  --accent-soft: rgba(46, 125, 50, 0.08);
+  --accent-muted: rgba(46, 125, 50, 0.15);
+
+  /* 라이트 테마 */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #FAFAFA;
+  --bg-card: #FAFAFA;
+  --text-primary: #1A1A1A;
+  --text-secondary: #5C5C5C;
+  --text-muted: #8A8A8A;
+  --border-color: #E0E0E0;
+  --nav-bg: transparent;
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.92);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.1);
+  --hero-bg-text: rgba(46, 125, 50, 0.07);
+}
+
+/* 다크 테마 변수 세트 */
+[data-theme="dark"] {
+  --accent-soft: rgba(76, 175, 80, 0.12);
+  --accent-muted: rgba(76, 175, 80, 0.2);
+  --bg-primary: #121212;
+  --bg-secondary: #1A1A1A;
+  --bg-card: #1E1E1E;
+  --text-primary: #F0F0F0;
+  --text-secondary: #B0B0B0;
+  --text-muted: #787878;
+  --border-color: #333333;
+  --nav-bg-scrolled: rgba(18, 18, 18, 0.92);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --hero-bg-text: rgba(76, 175, 80, 0.07);
+}
+
+
+/* ============================================================
+   기본 리셋 & 전역 스타일
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.container {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+
+/* ============================================================
+   상단 내비게이션
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--nav-bg);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav--scrolled {
+  background: var(--nav-bg-scrolled);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.nav__logo {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--accent-color);
+}
+
+.nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav__link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.nav__link:hover {
+  color: var(--accent-color);
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 다크모드 토글 버튼 */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.theme-toggle__icon {
+  font-size: 0.95rem;
+}
+
+.theme-toggle__icon--dark {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle__icon--light {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle__icon--dark {
+  display: block;
+}
+
+/* 모바일 햄버거 메뉴 */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.nav__hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav__hamburger.is-active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav__hamburger.is-active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__hamburger.is-active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* ============================================================
+   히어로 섹션
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 120px 0 80px;
+}
+
+.hero__bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(4rem, 14vw, 11rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--hero-bg-text);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero__name {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+}
+
+.hero__headline {
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  color: var(--accent-color);
+  letter-spacing: -0.01em;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.hero__intro {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  max-width: 640px;
+  line-height: 1.85;
+}
+
+
+/* ============================================================
+   공통 섹션 레이아웃
+   ============================================================ */
+.section {
+  padding: 100px 0;
+}
+
+.section--alt {
+  background-color: var(--bg-secondary);
+}
+
+.section--contact {
+  padding-bottom: 80px;
+}
+
+/* 섹션 제목 — 포인트 컬러 라벨 + 큰 제목 */
+.section__header {
+  margin-bottom: 48px;
+}
+
+.section__label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 10px;
+}
+
+.section__title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+
+/* ============================================================
+   카드 공통 스타일
+   ============================================================ */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 32px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-muted);
+}
+
+.card--wide {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+}
+
+.card--wide p + p {
+  margin-top: 16px;
+}
+
+.about__lead {
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 16px;
+  line-height: 1.75;
+}
+
+
+/* ============================================================
+   Education — 세로 타임라인
+   ============================================================ */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--border-color);
+}
+
+.timeline__item {
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.timeline__item:last-child {
+  padding-bottom: 0;
+}
+
+/* 타임라인 점 */
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 3px solid var(--accent-color);
+  z-index: 1;
+}
+
+.section--alt .timeline__item::before {
+  background: var(--bg-secondary);
+}
+
+.timeline__badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent-color);
+  background: var(--accent-soft);
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+
+.timeline__org {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.timeline__summary {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.timeline__details {
+  padding-left: 0;
+}
+
+.timeline__details li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.timeline__details li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+
+/* ============================================================
+   Experiences — 2열 카드 그리드
+   ============================================================ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.card--project {
+  display: flex;
+  flex-direction: column;
+}
+
+.card__title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
+.card__meta {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.card__list {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.card__list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.card__list li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   태그 칩 (알약 모양)
+   ============================================================ */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent-color);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-muted);
+  padding: 5px 14px;
+  border-radius: 100px;
+  letter-spacing: 0.01em;
+}
+
+.tag--skill {
+  font-size: 0.8125rem;
+  padding: 6px 16px;
+}
+
+
+/* ============================================================
+   Skills 섹션
+   ============================================================ */
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.skills__category {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+
+/* ============================================================
+   Contact & 푸터
+   ============================================================ */
+.contact__quote {
+  border-left: 3px solid var(--accent-color);
+  padding: 8px 0 8px 28px;
+  margin: 0;
+}
+
+.contact__quote p {
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  font-style: normal;
+}
+
+.footer {
+  padding: 32px 0 40px;
+  border-top: 1px solid var(--border-color);
+}
+
+.footer__copy {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+
+/* ============================================================
+   스크롤 등장 애니메이션
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ============================================================
+   반응형 — 모바일
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav__menu {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: var(--nav-bg-scrolled);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px 24px 24px;
+    transform: translateY(-110%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .nav__menu.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav__link {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .nav__link:last-child {
+    border-bottom: none;
+  }
+
+  .nav__hamburger {
+    display: flex;
+  }
+
+  .hero {
+    min-height: 100svh;
+    padding: 100px 0 60px;
+  }
+
+  .hero__bg-text {
+    font-size: clamp(2.5rem, 18vw, 5rem);
+    white-space: normal;
+    text-align: center;
+    width: 90%;
+  }
+
+  .section {
+    padding: 80px 0;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .card--wide {
+    padding: 28px;
+  }
+
+  .timeline {
+    padding-left: 28px;
+  }
+
+  .timeline__item::before {
+    left: -28px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .nav__inner {
+    height: 64px;
+  }
+
+  html {
+    scroll-padding-top: 64px;
+  }
+}
+
+
+/* ============================================================
+   챗봇 — 플로팅 버튼 & 대화 패널
+   ============================================================ */
+.chatbot {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 200;
+}
+
+/* 플로팅 열기 버튼 */
+.chatbot__fab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent-color);
+  color: #FFFFFF;
+  font-size: 1.35rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chatbot__fab:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.chatbot__fab.is-hidden {
+  display: none;
+}
+
+/* 대화 패널 */
+.chatbot__panel {
+  position: absolute;
+  bottom: 68px;
+  right: 0;
+  width: 380px;
+  max-height: 520px;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.97);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.chatbot__panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* 패널 헤더 */
+.chatbot__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.chatbot__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 2px;
+}
+
+.chatbot__subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.chatbot__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.chatbot__close:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* 메시지 영역 */
+.chatbot__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 280px;
+  max-height: 340px;
+}
+
+.chatbot__message {
+  max-width: 88%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  word-break: break-word;
+}
+
+.chatbot__message p {
+  margin: 0;
+}
+
+.chatbot__message--bot {
+  align-self: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  border-bottom-left-radius: 4px;
+}
+
+.chatbot__message--user {
+  align-self: flex-end;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-muted);
+  color: var(--text-primary);
+  border-bottom-right-radius: 4px;
+}
+
+.chatbot__message--error {
+  align-self: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+/* 로딩 표시 */
+.chatbot__message--loading {
+  align-self: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 12px 18px;
+  border-bottom-left-radius: 4px;
+}
+
+.chatbot__typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.chatbot__typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: chatbot-typing 1.2s infinite ease-in-out;
+}
+
+.chatbot__typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.chatbot__typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes chatbot-typing {
+  0%, 60%, 100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+/* 입력 영역 */
+.chatbot__form {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.chatbot__input {
+  flex: 1;
+  resize: none;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  max-height: 100px;
+  transition: border-color 0.2s ease;
+}
+
+.chatbot__input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.chatbot__input::placeholder {
+  color: var(--text-muted);
+}
+
+.chatbot__send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent-color);
+  color: #FFFFFF;
+  font-size: 0.875rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+}
+
+.chatbot__send:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.chatbot__send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* 챗봇 — 모바일 반응형 */
+@media (max-width: 480px) {
+  .chatbot {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+  }
+
+  .chatbot__panel {
+    width: 100%;
+    max-height: 70vh;
+    bottom: 64px;
+  }
+
+  .chatbot__messages {
+    min-height: 200px;
+    max-height: calc(70vh - 160px);
+  }
+}
