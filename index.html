@@ -6,6 +6,15 @@
   <meta name="description" content="데이터와 AI를 연결하는 서비스 기획자 김세은의 포트폴리오">
   <title>김세은 | Portfolio</title>
 
+  <!-- 파비콘 -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="김세은 | Portfolio">
+  <meta property="og:description" content="데이터와 AI를 연결하는 서비스 기획자 김세은의 포트폴리오">
+  <meta property="og:image" content="https://kickingoff-axmwaumel-seeunkims-projects-a94d3412.vercel.app/thumbnail.png">
+  <meta property="og:url" content="https://kickingoff-axmwaumel-seeunkims-projects-a94d3412.vercel.app/">
+
   <!-- Pretendard 폰트 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
@@ -298,44 +307,6 @@
       <p class="footer__copy">&copy; 2026 김세은. All rights reserved.</p>
     </div>
   </footer>
-
-  <!-- ========== 챗봇 ========== -->
-  <div class="chatbot" id="chatbot">
-    <button type="button" class="chatbot__fab" id="chatFab" aria-label="챗봇 열기" aria-expanded="false">
-      <i class="fa-solid fa-comment-dots" aria-hidden="true"></i>
-    </button>
-
-    <div class="chatbot__panel" id="chatPanel" aria-hidden="true">
-      <header class="chatbot__header">
-        <div class="chatbot__header-text">
-          <h3 class="chatbot__title">세은's Assistant</h3>
-          <p class="chatbot__subtitle">김세은에 대해 궁금한 점을 물어보세요</p>
-        </div>
-        <button type="button" class="chatbot__close" id="chatClose" aria-label="챗봇 닫기">
-          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-        </button>
-      </header>
-
-      <div class="chatbot__messages" id="chatMessages" role="log" aria-live="polite" aria-label="채팅 메시지">
-        <div class="chatbot__message chatbot__message--bot">
-          <p>안녕하세요! 김세은에 대해 궁금한 점이 있으시면 편하게 물어보세요.</p>
-        </div>
-      </div>
-
-      <form class="chatbot__form" id="chatForm">
-        <textarea
-          class="chatbot__input"
-          id="chatInput"
-          rows="1"
-          placeholder="메시지를 입력하세요"
-          aria-label="메시지 입력"
-        ></textarea>
-        <button type="submit" class="chatbot__send" id="chatSend" aria-label="메시지 전송">
-          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-        </button>
-      </form>
-    </div>
-  </div>
 
   <!-- 스크립트 -->
   <script src="script.js"></script>
